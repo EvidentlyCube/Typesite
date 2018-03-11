@@ -78,9 +78,9 @@ describe('ContentFilePath', () => {
     });
 
     it("Should join paths", () => {
-       expect(ContentFilePath.createFromPath("test/path").join("foo").filePath).to.equal(standardizePath('test/path/foo'));
-       expect(ContentFilePath.createFromPath("test/path").join("..").filePath).to.equal(standardizePath('test'));
-       expect(ContentFilePath.createFromPath("test/path").join("../buck").filePath).to.equal(standardizePath('test/buck'));
+        expect(ContentFilePath.createFromPath("test/path").join("foo").filePath).to.equal(standardizePath('test/path/foo'));
+        expect(ContentFilePath.createFromPath("test/path").join("..").filePath).to.equal(standardizePath('test'));
+        expect(ContentFilePath.createFromPath("test/path").join("../buck").filePath).to.equal(standardizePath('test/buck'));
     });
 
     it("Should create identical path regardless of separator", () => {
@@ -100,13 +100,13 @@ describe('ContentFilePath', () => {
         expect(pathCopy).to.not.equal(pathBase);
     });
 
-    it("Should return string representation", function(){
+    it("Should return string representation", function () {
         const path = ContentFilePath.createFromPath("ducks/are/the/best.txt");
 
         expect(path.toString()).to.equal(`[ContentFilePath "${standardizePath('ducks/are/the/best.txt')}"]`)
     });
 });
 
-function standardizePath(path: string): string{
+function standardizePath(path: string): string {
     return path.replace(/[\\/]/g, pathLibs.sep);
 }
