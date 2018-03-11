@@ -88,6 +88,10 @@ export default class ContentFileCollection {
         }
     }
 
+    public getAllRelativeFilePaths(): string[] {
+        return Object.keys(this._files);
+    }
+
     public async eachAsync(callback: (ContentFile) => void): Promise<void> {
         const filePaths = Object.keys(this._files);
 

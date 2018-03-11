@@ -122,6 +122,22 @@ describe('ContentFileCollection', () => {
             });
     });
 
+    it("Should return all file paths", () => {
+        const file1 = new ContentFile(ContentFilePath.createFromPath("this/is/file.1"));
+        const file2 = new ContentFile(ContentFilePath.createFromPath("this/is/file.2"));
+        const file3 = new ContentFile(ContentFilePath.createFromPath("this/is/file.3"));
+        const collection = new ContentFileCollection();
+        collection.addFile(file1.relativeSourcePath, file1);
+        collection.addFile(file2.relativeSourcePath, file2);
+        collection.addFile(file3.relativeSourcePath, file3);
+
+        expect(collection.getAllRelativeFilePaths())
+            .to.be.lengthOf(3)
+            .to.contain(file1.relativeSourcePath.filePath)
+            .to.contain(file2.relativeSourcePath.filePath)
+            .to.contain(file3.relativeSourcePath.filePath);
+    });
+
     it("Should move file", () => {
         const fromPath = "path/from/file.txt";
         const toPath = "path/to/file.txt";
