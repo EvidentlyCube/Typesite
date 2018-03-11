@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import 'mocha';
 import * as pathLibs from 'path';
-import ContentFilePath from "../../src/core/ContentFilePath";
+import ContentFilePath from "../../src/content/ContentFilePath";
 import ArgumentNullError from "../../src/errors/ArgumentNullError";
 import ArgumentInvalidError from "../../src/errors/ArgumentInvalidError";
 

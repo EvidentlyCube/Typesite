@@ -1,15 +1,14 @@
 import {expect} from 'chai';
 import 'mocha';
-import ContentFile from "../../src/core/ContentFile";
-import ContentFilePath from "../../src/core/ContentFilePath";
+import ContentFile from "../../src/content/ContentFile";
+import ContentFilePath from "../../src/content/ContentFilePath";
 
 describe('ContentFile', () => {
-    it("Should set source & target path", () => {
+    it("Should set source path", () => {
         const path = ContentFilePath.createFromPath("index.html");
         const file = new ContentFile(path);
 
         expect(file.relativeSourcePath.filePath).to.equal(path.filePath);
-        expect(file.relativeTargetPath.filePath).to.equal(path.filePath);
     });
 
     it("Should return source path as default content", () => {

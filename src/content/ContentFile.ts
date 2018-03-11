@@ -5,15 +5,12 @@ export default class ContentFile {
     private _dynamicContent: Buffer;
     private _wasContentSet: boolean;
 
-    public relativeTargetPath: ContentFilePath;
-
     public get relativeSourcePath(): ContentFilePath {
         return this._relativeSourcePath;
     }
 
     constructor(sourcePath: ContentFilePath) {
         this._relativeSourcePath = sourcePath.copy;
-        this.relativeTargetPath = sourcePath.copy;
     }
 
     public getContents(): Buffer | ContentFilePath {
