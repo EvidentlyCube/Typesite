@@ -1,16 +1,19 @@
 import {expect} from 'chai';
 import 'mocha';
 import {normalize} from 'path';
-import ContentFileCollection from "../../src/content/ContentFileCollection";
 import ContentReader from "../../src/contentReader/ContentReader";
 import ArgumentNullError from "../../src/errors/ArgumentNullError";
 
-describe('ContentFileCollection', () => {
-    it("Should read files", () => {
+describe('ContentReader', () => {
+    it("Should read files and set collection's directory", () => {
         const reader = new ContentReader();
-        return reader.readFiles(__dirname + "/../fixtures/contentReader")
+        const sourceDir = normalize(__dirname + "/../fixtures/contentReader");
+
+        return reader.readFiles(sourceDir)
             .then(filesCollection => {
                 const filePaths = filesCollection.getAllRelativeFilePaths();
+
+                expect(filesCollection.sourcePath).to.equal(sourceDir);
 
                 expect(filePaths.length).to.equal(7);
                 expect(filePaths).to.contain(normalize('cssTest.css'));

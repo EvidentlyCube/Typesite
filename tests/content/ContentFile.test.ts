@@ -2,13 +2,25 @@ import {expect} from 'chai';
 import 'mocha';
 import ContentFile from "../../src/content/ContentFile";
 import ContentFilePath from "../../src/content/ContentFilePath";
+import ArgumentNullError from "../../src/errors/ArgumentNullError";
+import {normalize} from "path";
 
 describe('ContentFile', () => {
-    it("Should set source path", () => {
-        const path = ContentFilePath.createFromPath("index.html");
+    it("Should set source path (ContentFilePath)", () => {
+        const path = ContentFilePath.createFromPath("the/path/to/index.html");
         const file = new ContentFile(path);
 
         expect(file.relativeSourcePath.filePath).to.equal(path.filePath);
+    });
+    it("Should set source path (string)", () => {
+        const path = "this/is/index.html";
+        const file = new ContentFile(path);
+
+        expect(file.relativeSourcePath.filePath).to.equal(normalize(path));
+    });
+
+    it("Should throw error when passed null", () => {
+        expect(() => new ContentFile(null)).to.throw(ArgumentNullError);
     });
 
     it("Should return source path as default content", () => {

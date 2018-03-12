@@ -1,9 +1,9 @@
 import {expect} from 'chai';
 import 'mocha';
-import * as pathLibs from 'path';
 import ContentFilePath from "../../src/content/ContentFilePath";
 import ArgumentNullError from "../../src/errors/ArgumentNullError";
 import ArgumentInvalidError from "../../src/errors/ArgumentInvalidError";
+import {normalize} from "path";
 
 describe('ContentFilePath', () => {
     it("Should throw ArgumentNullException when passing null to constructor", () => {
@@ -21,13 +21,13 @@ describe('ContentFilePath', () => {
     it("Should return correct file path", () => {
         const path = new ContentFilePath(['test', 'dir', 'file.txt']);
 
-        expect(path.filePath).to.equal(standardizePath("test/dir/file.txt"));
+        expect(path.filePath).to.equal(normalize("test/dir/file.txt"));
     });
 
     it("Should return correct dir path", () => {
         const path = new ContentFilePath(['test', 'dir', 'file.txt']);
 
-        expect(path.directoryPath).to.equal(standardizePath("test/dir"));
+        expect(path.directoryPath).to.equal(normalize("test/dir"));
     });
 
     it("Should return correct filename", () => {
@@ -78,9 +78,9 @@ describe('ContentFilePath', () => {
     });
 
     it("Should join paths", () => {
-        expect(ContentFilePath.createFromPath("test/path").join("foo").filePath).to.equal(standardizePath('test/path/foo'));
-        expect(ContentFilePath.createFromPath("test/path").join("..").filePath).to.equal(standardizePath('test'));
-        expect(ContentFilePath.createFromPath("test/path").join("../buck").filePath).to.equal(standardizePath('test/buck'));
+        expect(ContentFilePath.createFromPath("test/path").join("foo").filePath).to.equal(normalize('test/path/foo'));
+        expect(ContentFilePath.createFromPath("test/path").join("..").filePath).to.equal(normalize('test'));
+        expect(ContentFilePath.createFromPath("test/path").join("../buck").filePath).to.equal(normalize('test/buck'));
     });
 
     it("Should create identical path regardless of separator", () => {
@@ -88,8 +88,8 @@ describe('ContentFilePath', () => {
         const pathSlashes = ContentFilePath.createFromPath(pathBase);
         const pathBackslashes = ContentFilePath.createFromPath(pathBase.replace(/\//g, '\\'));
 
-        expect(pathSlashes.filePath).to.equal(standardizePath(pathBase));
-        expect(pathBackslashes.filePath).equal(standardizePath(pathBase));
+        expect(pathSlashes.filePath).to.equal(normalize(pathBase));
+        expect(pathBackslashes.filePath).equal(normalize(pathBase));
     });
 
     it('should return a copy', function () {
@@ -103,10 +103,5 @@ describe('ContentFilePath', () => {
     it("Should return string representation", function () {
         const path = ContentFilePath.createFromPath("ducks/are/the/best.txt");
 
-        expect(path.toString()).to.equal(`[ContentFilePath "${standardizePath('ducks/are/the/best.txt')}"]`)
-    });
-});
-
-function standardizePath(path: string): string {
-    return path.replace(/[\\/]/g, pathLibs.sep);
-}
+        expect(path.toString()).to.equal(`[ContentFilePath "${normalize('ducks/are/the/best.txt')}"]`)
+    });});

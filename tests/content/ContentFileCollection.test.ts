@@ -5,6 +5,7 @@ import ContentFileCollection from "../../src/content/ContentFileCollection";
 import ContentFilePath from "../../src/content/ContentFilePath";
 import ArgumentNullError from "../../src/errors/ArgumentNullError";
 import ArgumentInvalidError from "../../src/errors/ArgumentInvalidError";
+import {normalize, resolve} from "path";
 
 describe('ContentFileCollection', () => {
     it("Should add and return added file correctly", () => {
@@ -167,6 +168,18 @@ describe('ContentFileCollection', () => {
         collection.addFile("from", new ContentFile(ContentFilePath.createFromPath("from")));
         collection.addFile("to", new ContentFile(ContentFilePath.createFromPath("to")));
         expect(() => collection.moveFile("from", "to")).to.throw(ArgumentInvalidError);
+    });
+    it("Should set source path to absolute path", () => {
+        const collection = new ContentFileCollection("test/dir");
+        expect(collection.sourcePath).to.equal(resolve("test/dir"));
+    });
+    it("Should set source path to exactly given path if it is absolute (unix)", () => {
+        const collection = new ContentFileCollection("/var/lib/test/dir");
+        expect(collection.sourcePath).to.equal(normalize("/var/lib/test/dir"));
+    });
+    it("Should set source path to exactly given path if it is absolute (win32)", () => {
+        const collection = new ContentFileCollection("C:/project/duck");
+        expect(collection.sourcePath).to.equal(normalize("C:/project/duck"));
     });
 });
 

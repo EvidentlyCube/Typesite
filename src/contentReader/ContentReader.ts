@@ -13,7 +13,7 @@ export default class ContentReader implements IContentReader {
             throw new ArgumentNullError("path");
         }
 
-        const collection = new ContentFileCollection();
+        const collection = new ContentFileCollection(path);
         const files = await recursiveReadDir(normalize(path));
 
         files.forEach(file => {

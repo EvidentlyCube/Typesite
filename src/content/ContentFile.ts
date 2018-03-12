@@ -1,4 +1,5 @@
 import ContentFilePath from "./ContentFilePath";
+import ArgumentNullError from "../errors/ArgumentNullError";
 
 export default class ContentFile {
     private _relativeSourcePath: ContentFilePath;
@@ -9,8 +10,12 @@ export default class ContentFile {
         return this._relativeSourcePath;
     }
 
-    constructor(sourcePath: ContentFilePath) {
-        this._relativeSourcePath = sourcePath.copy;
+    constructor(sourcePath: ContentFilePath | string) {
+        if (!sourcePath){
+            throw new ArgumentNullError("sourcePath");
+        }
+
+        this._relativeSourcePath = typeof sourcePath === "string" ? ContentFilePath.createFromPath(sourcePath) : sourcePath.copy;
     }
 
     public getContents(): Buffer | ContentFilePath {

@@ -1,4 +1,5 @@
 import * as pathLib from 'path';
+import {isAbsolute, normalize, resolve} from 'path';
 import ContentFile from "./ContentFile";
 import ContentFilePath from "./ContentFilePath";
 import ArgumentNullError from "../errors/ArgumentNullError";
@@ -6,9 +7,15 @@ import ArgumentInvalidError from "../errors/ArgumentInvalidError";
 
 export default class ContentFileCollection {
     private _files: { [id: string]: ContentFile; };
+    private _sourcePath: string;
 
-    constructor() {
+    public get sourcePath(): string {
+        return this._sourcePath;
+    }
+
+    constructor(sourcePath: string = "") {
         this._files = {};
+        this._sourcePath = isAbsolute(sourcePath) ? normalize(sourcePath) : resolve(sourcePath);
     }
 
     public addFile(path: ContentFilePath | string, file: ContentFile): void {
