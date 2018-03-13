@@ -1,30 +1,13 @@
 import {expect} from 'chai';
 import 'mocha';
-import MetaContainer from "../../src/core/MetaContainer";
+import {Metadata} from "../../src";
 
-class test_MT_1{
-    public toString():string{
-        return '[test_MT_1]';
-    }
-}
-class test_MT_2{
-    public toString():string{
-        return '[test_MT_2]';
-    }
-
-}
-class test_MT_3_ext_2{
-    public toString():string{
-        return '[test_MT_3_ext_2]';
-    }
-}
-
-describe('MetaContainer', () => {
+describe('Metadata', () => {
     it("Should set and return items", () => {
         const item1 = new test_MT_1();
         const item2 = new test_MT_2();
         const item3 = new test_MT_3_ext_2();
-        const meta = new MetaContainer();
+        const meta = new Metadata();
 
         meta.setItem(item1);
         meta.setItem(item2);
@@ -41,7 +24,7 @@ describe('MetaContainer', () => {
 
     it("Should remove item", () => {
         const item = new test_MT_1();
-        const meta = new MetaContainer();
+        const meta = new Metadata();
 
         meta.setItem(item);
         meta.removeItem(test_MT_1);
@@ -54,7 +37,7 @@ describe('MetaContainer', () => {
     it("Setting same item again will override the old one", () => {
         const itemOld = new test_MT_1();
         const itemNew = new test_MT_1();
-        const meta = new MetaContainer();
+        const meta = new Metadata();
 
         meta.setItem(itemOld);
         meta.setItem(itemNew);
@@ -64,3 +47,21 @@ describe('MetaContainer', () => {
     });
 });
 
+class test_MT_1 {
+    public toString(): string {
+        return '[test_MT_1]';
+    }
+}
+
+class test_MT_2 {
+    public toString(): string {
+        return '[test_MT_2]';
+    }
+
+}
+
+class test_MT_3_ext_2 {
+    public toString(): string {
+        return '[test_MT_3_ext_2]';
+    }
+}

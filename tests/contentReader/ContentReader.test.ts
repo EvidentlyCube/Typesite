@@ -1,8 +1,7 @@
 import {expect} from 'chai';
 import 'mocha';
-import {normalize} from 'path';
-import ContentReader from "../../src/contentReader/ContentReader";
-import ArgumentNullError from "../../src/errors/ArgumentNullError";
+import {normalize, resolve} from 'path';
+import {ArgumentNullError, ContentReader} from "../../src";
 
 describe('ContentReader', () => {
     it("Should read files and set collection's directory", () => {
@@ -15,14 +14,16 @@ describe('ContentReader', () => {
 
                 expect(filesCollection.sourcePath).to.equal(sourceDir);
 
-                expect(filePaths.length).to.equal(7);
-                expect(filePaths).to.contain(normalize('cssTest.css'));
-                expect(filePaths).to.contain(normalize('htmlTest.html'));
-                expect(filePaths).to.contain(normalize('testPng.png'));
-                expect(filePaths).to.contain(normalize('testSvg.svg'));
-                expect(filePaths).to.contain(normalize('subdir/.url'));
-                expect(filePaths).to.contain(normalize('subdir/someFile.txt'));
-                expect(filePaths).to.contain(normalize('subdir/another/noExtension'));
+                expect(filePaths).to.have.lengthOf(7)
+                    .to.contain(normalize('cssTest.css'))
+                    .to.contain(normalize('htmlTest.html'))
+                    .to.contain(normalize('testPng.png'))
+                    .to.contain(normalize('testSvg.svg'))
+                    .to.contain(normalize('subdir/.url'))
+                    .to.contain(normalize('subdir/someFile.txt'))
+                    .to.contain(normalize('subdir/another/noExtension'));
+
+                expect(filesCollection.getFile('cssTest.css').absoluteSourcePath.filePath).to.equal(resolve(sourceDir, "cssTest.css"));
             });
     });
 

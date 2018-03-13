@@ -1,23 +1,21 @@
-import IContentWriter from "./IContentWriter";
-import ContentFileCollection from "../content/ContentFileCollection";
+import {IContentWriter} from "./IContentWriter";
+import {ContentFileCollection} from "../content/ContentFileCollection";
 import {copyFile, existsSync, mkdirSync, writeFile} from "fs";
-import ContentFilePath from "../content/ContentFilePath";
 import {dirname, resolve} from "path";
 
-export default class ContentWriter implements IContentWriter {
+export class ContentWriter implements IContentWriter {
     async writeFiles(files: ContentFileCollection, targetPath: string): Promise<void> {
         const filePaths = files.getAllRelativeFilePaths();
         for (let filePath of filePaths) {
             const file = files.getFile(filePath);
 
             if (file) {
-                const content = file.getContents();
                 const writePath = resolve(targetPath, filePath);
 
-                if (content instanceof ContentFilePath) {
-                    await this.copyFile(resolve(files.sourcePath, file.relativeSourcePath.filePath), writePath);
+                if (file.hasModifiedContent) {
+                    await this.writeFile(writePath, file.getContents());
                 } else {
-                    await this.writeFile(writePath, content);
+                    await this.copyFile(resolve(files.sourcePath, file.relativeSourcePath.filePath), writePath);
                 }
             }
         }
@@ -51,8 +49,8 @@ export default class ContentWriter implements IContentWriter {
         });
     }
 
-    private mkdirRecursive(targetDir) {
-        if (!existsSync(targetDir)){
+    private mkdirRecursive(targetDir: string) {
+        if (!existsSync(targetDir)) {
             this.mkdirRecursive(resolve(targetDir, ".."));
             mkdirSync(targetDir);
         }

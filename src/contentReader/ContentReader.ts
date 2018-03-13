@@ -1,25 +1,25 @@
-import IContentReader from "./IContentReader";
-import ContentFileCollection from "../content/ContentFileCollection";
-import {normalize, relative} from 'path';
-import ContentFile from "../content/ContentFile";
-import ContentFilePath from "../content/ContentFilePath";
-import ArgumentNullError from "../errors/ArgumentNullError";
 import recursiveReadDir = require("recursive-readdir");
+import {normalize, relative} from 'path';
+import {IContentReader} from "./IContentReader";
+import {ContentFileCollection} from "../content/ContentFileCollection";
+import {ContentFile} from "../content/ContentFile";
+import {ContentFilePath} from "../content/ContentFilePath";
+import {ArgumentNullError} from "../errors/ArgumentNullError";
 
-export default class ContentReader implements IContentReader {
+export class ContentReader implements IContentReader {
 
-    public async readFiles(path: string): Promise<ContentFileCollection> {
-        if (!path) {
+    public async readFiles(sourcePath: string): Promise<ContentFileCollection> {
+        if (!sourcePath) {
             throw new ArgumentNullError("path");
         }
 
-        const collection = new ContentFileCollection(path);
-        const files = await recursiveReadDir(normalize(path));
+        const collection = new ContentFileCollection(sourcePath);
+        const files = await recursiveReadDir(normalize(sourcePath));
 
         files.forEach(file => {
-            const relativePath = relative(path, file);
+            const relativePath = relative(sourcePath, file);
 
-            collection.addFile(relativePath, new ContentFile(ContentFilePath.createFromPath(relativePath)));
+            collection.addFile(relativePath, new ContentFile(ContentFilePath.createFromPath(relativePath), sourcePath));
         });
 
         return collection;

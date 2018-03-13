@@ -1,8 +1,7 @@
 import * as pathLibs from 'path';
-import ArgumentNullError from "../errors/ArgumentNullError";
-import ArgumentInvalidError from "../errors/ArgumentInvalidError";
+import {ArgumentNullError} from "../errors/ArgumentNullError";
 
-export default class ContentFilePath {
+export class ContentFilePath {
     private _chunks: string[];
 
     get filePath(): string {
@@ -39,9 +38,6 @@ export default class ContentFilePath {
         }
 
         chunks = chunks.filter(chunk => chunk);
-        if (chunks.length === 0) {
-            throw new ArgumentInvalidError("chunks", "Cannot be empty");
-        }
 
         this._chunks = chunks;
     }
@@ -51,6 +47,14 @@ export default class ContentFilePath {
             return ContentFilePath.createFromPath(pathLibs.join(this.filePath, path));
         } else {
             return ContentFilePath.createFromPath(pathLibs.join(this.filePath, path.filePath));
+        }
+    }
+
+    public changeExtension(extension: string): ContentFilePath {
+        if (this.isDotFile) {
+            return ContentFilePath.createFromPath(this.filePath + `.${extension}`);
+        } else {
+            return ContentFilePath.createFromPath(this.directoryPath).join(`${this.filenameWithoutExtension}.${extension}`);
         }
     }
 

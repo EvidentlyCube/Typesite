@@ -1,5 +1,5 @@
-import ContentFileCollection from "../content/ContentFileCollection";
+import {ContentFileCollection} from "../content/ContentFileCollection";
 
-export default interface IContentWriter {
-    writeFiles(files:ContentFileCollection, path: string): Promise<void>;
+export interface IContentWriter {
+    writeFiles(files: ContentFileCollection, path: string): Promise<void>;
 }

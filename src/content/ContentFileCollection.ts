@@ -1,11 +1,11 @@
 import * as pathLib from 'path';
 import {isAbsolute, normalize, resolve} from 'path';
-import ContentFile from "./ContentFile";
-import ContentFilePath from "./ContentFilePath";
-import ArgumentNullError from "../errors/ArgumentNullError";
-import ArgumentInvalidError from "../errors/ArgumentInvalidError";
+import {ContentFile} from "./ContentFile";
+import {ContentFilePath} from "./ContentFilePath";
+import {ArgumentNullError} from "../errors/ArgumentNullError";
+import {ArgumentInvalidError} from "../errors/ArgumentInvalidError";
 
-export default class ContentFileCollection {
+export class ContentFileCollection {
     private _files: { [id: string]: ContentFile; };
     private _sourcePath: string;
 
@@ -83,14 +83,15 @@ export default class ContentFileCollection {
             : null;
     }
 
-    public eachSync(callback: (ContentFile) => void): void {
+    public eachSync(callback: (file: ContentFile, path: string) => void): void {
         const filePaths = Object.keys(this._files);
 
         for (let i = 0; i < filePaths.length; i++) {
-            const file = this.getFile(filePaths[i]);
+            const filePath = filePaths[i];
+            const file = this.getFile(filePath);
 
             if (file) {
-                callback(file);
+                callback(file, filePath);
             }
         }
     }
@@ -99,14 +100,15 @@ export default class ContentFileCollection {
         return Object.keys(this._files);
     }
 
-    public async eachAsync(callback: (ContentFile) => void): Promise<void> {
+    public async eachAsync(callback: (file: ContentFile, path: string) => void): Promise<void> {
         const filePaths = Object.keys(this._files);
 
         for (let i = 0; i < filePaths.length; i++) {
-            const file = this.getFile(filePaths[i]);
+            const filePath = filePaths[i];
+            const file = this.getFile(filePath);
 
             if (file) {
-                await callback(file);
+                await callback(file, filePath);
             }
         }
     }

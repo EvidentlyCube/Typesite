@@ -1,18 +1,18 @@
 import {expect} from 'chai';
 import 'mocha';
 import {tmpdir} from "os";
-import ContentFile from "../../src/content/ContentFile";
 import {join} from "path";
-import ContentFileCollection from "../../src/content/ContentFileCollection";
-import ContentWriter from "../../src/contentWriter/ContentWriter";
+import {ContentFile, ContentFileCollection, ContentWriter} from "../../src";
 import {existsSync, readFileSync} from "fs";
 
 describe('ContentWriter', () => {
+    const fixturesPath: string = __dirname + "/../fixtures/contentReader/";
+
     it("Should write files with predefined content", async () => {
         const targetDir = join(tmpdir(), "typesite-" + Date.now().valueOf().toString());
-        const file1 = new ContentFile(".tmp");
-        const file2 = new ContentFile(".tmp");
-        const file3 = new ContentFile(".tmp");
+        const file1 = new ContentFile(".tmp", fixturesPath);
+        const file2 = new ContentFile(".tmp", fixturesPath);
+        const file3 = new ContentFile(".tmp", fixturesPath);
 
         file1.setContents(new Buffer("Duck 1"));
         file2.setContents(new Buffer("Duck 2"));
@@ -37,9 +37,9 @@ describe('ContentWriter', () => {
 
     it("Should write files with source path", async () => {
         const targetDir = join(tmpdir(), "typesite-" + Date.now().valueOf().toString());
-        const file1 = new ContentFile("cssTest.css");
-        const file2 = new ContentFile("subdir/someFile.txt");
-        const file3 = new ContentFile("subdir/another/noExtension");
+        const file1 = new ContentFile("cssTest.css", fixturesPath);
+        const file2 = new ContentFile("subdir/someFile.txt", fixturesPath);
+        const file3 = new ContentFile("subdir/another/noExtension", fixturesPath);
 
         const files = new ContentFileCollection(__dirname + "/../fixtures/contentReader");
         files.addFile(file1.relativeSourcePath, file1);

@@ -1,4 +1,4 @@
-export default class ArgumentInvalidError extends Error {
+export class ArgumentInvalidError extends Error {
     private _argumentName: string;
 
     public getArgumentName(): string {

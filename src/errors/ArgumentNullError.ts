@@ -1,4 +1,4 @@
-export default class ArgumentNullError extends Error {
+export class ArgumentNullError extends Error {
     private _argumentName: string;
 
     public getArgumentName(): string {

@@ -1,7 +1,7 @@
-export default class MetaContainer {
+export class Metadata {
     private _map: any[] = [];
 
-    public get itemCount():number{
+    public get itemCount(): number {
         return this._map.length;
     }
 
@@ -19,7 +19,7 @@ export default class MetaContainer {
         this._map.push(item);
     }
 
-    public removeItem<T>(classToRemove: { new(): T; }): void{
+    public removeItem<T>(classToRemove: { new(): T; }): void {
         this._map = this._map.filter(item => item.constructor !== classToRemove);
     }
 }

@@ -1,13 +1,16 @@
 {
 	"compilerOptions": {
-		"outDir": "./built",
+		"outDir": "./dist",
 		"allowJs": false,
 		"target": "es6",
+		"declaration": true,
 		"module": "none",
 		"moduleResolution": "node",
-		"jsx": "React"
+		"strict": true,
+		"strictNullChecks": false,
+		"sourceMap": true
 	},
 	"include": [
-		"./src/**/*"
+		"./src/index.ts"
 	]
 }

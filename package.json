@@ -1,27 +1,49 @@
 {
-  "name": "typesite",
-  "version": "0.0.1",
-  "description": "A static website builder made to work with Typescript",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha %NODE_DEBUG_OPTION% -r ts-node/register tests*/**/*.test.ts"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@types/react": "^16.0.38",
-    "@types/react-dom": "^16.0.4",
-    "@types/recursive-readdir": "^2.2.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "recursive-readdir": "^2.2.2"
-  },
-  "devDependencies": {
-    "@types/chai": "^4.1.2",
-    "@types/mocha": "^2.2.48",
-    "chai": "^4.1.2",
-    "mocha": "^5.0.4",
-    "ts-node": "^5.0.1",
-    "typescript": "^2.7.2"
-  }
+	"name": "typesite",
+	"version": "0.1.0",
+	"description": "A static website builder made to work with Typescript",
+	"keywords": [
+		"static",
+		"file",
+		"site",
+		"website",
+		"blog",
+		"generator",
+		"typescript"
+	],
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"engines": {
+		"node": ">=9.0.0"
+	},
+	"scripts": {
+		"build": "tsc",
+		"test": "mocha -r ts-node/register tests/**/*.test.ts",
+		"test-intellij-debug": "mocha %NODE_DEBUG_OPTION% -r ts-node/register tests/**/*.test.ts"
+	},
+	"author": "Maurycy Zarzycki <maurycy@evidentlycube.com> (https://www.evidentlycube.com)",
+	"license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:EvidentlyCube/Typesite.git"
+	},
+	"files": [
+		"dist"
+	],
+	"dependencies": {
+		"recursive-readdir": "^2.2.2",
+		"signals": "^1.0.0"
+	},
+	"devDependencies": {
+		"@types/react": "^16.0.38",
+		"@types/react-dom": "^16.0.4",
+		"@types/recursive-readdir": "^2.2.0",
+		"@types/signals": "^1.0.1",
+		"@types/chai": "^4.1.2",
+		"@types/mocha": "^2.2.48",
+		"chai": "^4.1.2",
+		"mocha": "^5.0.4",
+		"ts-node": "^5.0.1",
+		"typescript": "^2.7.2"
+	}
 }

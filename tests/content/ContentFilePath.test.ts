@@ -1,8 +1,6 @@
 import {expect} from 'chai';
 import 'mocha';
-import ContentFilePath from "../../src/content/ContentFilePath";
-import ArgumentNullError from "../../src/errors/ArgumentNullError";
-import ArgumentInvalidError from "../../src/errors/ArgumentInvalidError";
+import {ArgumentNullError, ContentFilePath} from "../../src";
 import {normalize} from "path";
 
 describe('ContentFilePath', () => {
@@ -10,12 +8,16 @@ describe('ContentFilePath', () => {
         expect(() => new ContentFilePath(null)).to.throw(ArgumentNullError);
     });
 
-    it("Should throw ArgumentInvalidException when passing empty chunks array to constructor", () => {
-        expect(() => new ContentFilePath([])).to.throw(ArgumentInvalidError);
+    it("Should support empty path", () => {
+        const path = new ContentFilePath([]);
+
+        expect(path.filePath).to.equal("");
     });
 
-    it("Should throw ArgumentInvalidException when passing only nulls and empty string to constructor", () => {
-        expect(() => new ContentFilePath([null, ''])).to.throw(ArgumentInvalidError);
+    it("Should filter out empty strings and nulls", () => {
+        const path = new ContentFilePath(["this", null, "is", "", "file"]);
+
+        expect(path.filePath).to.equal(normalize("this/is/file"));
     });
 
     it("Should return correct file path", () => {
@@ -104,4 +106,11 @@ describe('ContentFilePath', () => {
         const path = ContentFilePath.createFromPath("ducks/are/the/best.txt");
 
         expect(path.toString()).to.equal(`[ContentFilePath "${normalize('ducks/are/the/best.txt')}"]`)
-    });});
+    });
+
+    it("Should return copy with changed extension", () => {
+        expect(ContentFilePath.createFromPath("this/is/path.txt").changeExtension("html").filePath).to.equal(normalize("this/is/path.html"));
+        expect(ContentFilePath.createFromPath("this/is/path").changeExtension("html").filePath).to.equal(normalize("this/is/path.html"));
+        expect(ContentFilePath.createFromPath("this/is/.file").changeExtension("html").filePath).to.equal(normalize("this/is/.file.html"));
+    });
+});

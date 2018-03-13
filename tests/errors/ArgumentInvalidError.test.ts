@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import 'mocha';
-import ArgumentInvalidError from "../../src/errors/ArgumentInvalidError";
+import {ArgumentInvalidError} from "../../src";
 
 describe('ArgumentInvalidError', () => {
     it('Should set argumentName property', () => {

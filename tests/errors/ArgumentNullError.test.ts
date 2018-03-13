@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import 'mocha';
-import ArgumentNullError from "../../src/errors/ArgumentNullError";
+import {ArgumentNullError} from "../../src";
 
 describe('ArgumentNullError', () => {
     it('Should set argumentName property', () => {

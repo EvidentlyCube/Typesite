@@ -1,5 +1,5 @@
-import ContentFileCollection from "../content/ContentFileCollection";
+import {ContentFileCollection} from "../content/ContentFileCollection";
 
-export default interface IContentReader {
+export interface IContentReader {
     readFiles(path: string): Promise<ContentFileCollection>;
 }
