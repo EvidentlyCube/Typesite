@@ -1,6 +1,7 @@
 import {expect} from 'chai';
 import 'mocha';
 import {Metadata} from "../../src";
+import {IMeta} from "../../src";
 
 describe('Metadata', () => {
     it("Should set and return items", () => {
@@ -47,20 +48,33 @@ describe('Metadata', () => {
     });
 });
 
-class test_MT_1 {
+class test_MT_1 implements IMeta {
+
+    getKey(): string {
+        return 'test_MT_1';
+    }
+
     public toString(): string {
         return '[test_MT_1]';
     }
 }
 
-class test_MT_2 {
+class test_MT_2 implements IMeta {
+    getKey(): string {
+        return 'test_MT_2';
+    }
+
     public toString(): string {
         return '[test_MT_2]';
     }
 
 }
 
-class test_MT_3_ext_2 {
+class test_MT_3_ext_2 implements IMeta {
+    getKey(): string {
+        return 'test_MT_3_ext_2';
+    }
+
     public toString(): string {
         return '[test_MT_3_ext_2]';
     }

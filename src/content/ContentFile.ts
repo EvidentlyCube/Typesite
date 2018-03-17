@@ -1,6 +1,6 @@
 import {ContentFilePath} from "./ContentFilePath";
 import {ArgumentNullError} from "../errors/ArgumentNullError";
-import {Metadata} from "../core/Metadata";
+import {Metadata} from "../meta/Metadata";
 import {readFileSync} from "fs";
 import {resolve} from "path";
 

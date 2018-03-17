@@ -5,7 +5,7 @@ import {ArgumentNullError} from "../errors/ArgumentNullError";
 import {ContentReader} from "../contentReader/ContentReader";
 import {ContentWriter} from "../contentWriter/ContentWriter";
 import {IPlugin} from "./IPlugin";
-import {Metadata} from "./Metadata";
+import {Metadata} from "../meta/Metadata";
 
 /**
  * Ducks and rucks
