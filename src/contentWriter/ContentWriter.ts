@@ -45,7 +45,7 @@ export class ContentWriter implements IContentWriter {
                 } else {
                     resolve();
                 }
-            })
+            });
         });
     }
 

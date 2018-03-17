@@ -6,7 +6,7 @@ describe('Typesite', () => {
     const sourcePath = "this/is/source/path";
     const targetPath = "this/is/target/path";
 
-    it("Should test run executes everything in the correct order", async () => {
+    it("Should test load executes everything in the correct order", async () => {
         const log: any[] = [];
 
         const files = new ContentFileCollection();

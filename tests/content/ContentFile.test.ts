@@ -34,11 +34,11 @@ describe('ContentFile', () => {
     });
 
     it("Should return read content", () => {
-        const path = ContentFilePath.createFromPath("fixtures/contentReader/htmlTest.html");
+        const path = ContentFilePath.createFromPath("_fixtures/contentReader/htmlTest.html");
         const file = new ContentFile(path, __dirname + "/../");
 
         expect(file.getContents()).to.be.instanceOf(Buffer);
-        expect((<Buffer>file.getContents()).toString()).to.equal(readFileSync(__dirname + "/../fixtures/contentReader/htmlTest.html").toString());
+        expect((<Buffer>file.getContents()).toString()).to.equal(readFileSync(__dirname + "/../_fixtures/contentReader/htmlTest.html").toString());
     });
 
     it("Should return set content", () => {

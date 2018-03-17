@@ -6,7 +6,7 @@ import {ContentFile, ContentFileCollection, ContentWriter} from "../../src";
 import {existsSync, readFileSync} from "fs";
 
 describe('ContentWriter', () => {
-    const fixturesPath: string = __dirname + "/../fixtures/contentReader/";
+    const fixturesPath: string = __dirname + "/../_fixtures/contentReader/";
 
     it("Should write files with predefined content", async () => {
         const targetDir = join(tmpdir(), "typesite-" + Date.now().valueOf().toString());
@@ -41,7 +41,7 @@ describe('ContentWriter', () => {
         const file2 = new ContentFile("subdir/someFile.txt", fixturesPath);
         const file3 = new ContentFile("subdir/another/noExtension", fixturesPath);
 
-        const files = new ContentFileCollection(__dirname + "/../fixtures/contentReader");
+        const files = new ContentFileCollection(fixturesPath);
         files.addFile(file1.relativeSourcePath, file1);
         files.addFile(file2.relativeSourcePath, file2);
         files.addFile(file3.relativeSourcePath, file3);
@@ -54,11 +54,11 @@ describe('ContentWriter', () => {
         expect(existsSync(`${targetDir}/subdir/another/noExtension`)).to.be.true;
 
         expect(readFileSync(`${targetDir}/cssTest.css`, {encoding: "utf8"}))
-            .to.equal(readFileSync(__dirname + "/../fixtures/contentReader/cssTest.css", {encoding: "utf8"}));
+            .to.equal(readFileSync(`${fixturesPath}/cssTest.css`, {encoding: "utf8"}));
         expect(readFileSync(`${targetDir}/subdir/someFile.txt`, {encoding: "utf8"}))
-            .to.equal(readFileSync(__dirname + "/../fixtures/contentReader/subdir/someFile.txt", {encoding: "utf8"}));
+            .to.equal(readFileSync(`${fixturesPath}/subdir/someFile.txt`, {encoding: "utf8"}));
         expect(readFileSync(`${targetDir}/subdir/another/noExtension`, {encoding: "utf8"}))
-            .to.equal(readFileSync(__dirname + "/../fixtures/contentReader/subdir/another/noExtension", {encoding: "utf8"}));
+            .to.equal(readFileSync(`${fixturesPath}/subdir/another/noExtension`, {encoding: "utf8"}));
     });
 });
 

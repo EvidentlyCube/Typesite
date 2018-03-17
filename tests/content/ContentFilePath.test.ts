@@ -105,7 +105,7 @@ describe('ContentFilePath', () => {
     it("Should return string representation", function () {
         const path = ContentFilePath.createFromPath("ducks/are/the/best.txt");
 
-        expect(path.toString()).to.equal(`[ContentFilePath "${normalize('ducks/are/the/best.txt')}"]`)
+        expect(path.toString()).to.equal(`[ContentFilePath "${normalize('ducks/are/the/best.txt')}"]`);
     });
 
     it("Should return copy with changed extension", () => {

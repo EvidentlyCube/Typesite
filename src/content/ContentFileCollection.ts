@@ -28,7 +28,7 @@ export class ContentFileCollection {
         }
 
         if (this.hasFile(path)) {
-            throw new ArgumentInvalidError("path", "Adding a file to a path that is already occupied")
+            throw new ArgumentInvalidError("path", "Adding a file to a path that is already occupied");
         }
 
         this._files[ContentFileCollection.getStringPath(path)] = file;
