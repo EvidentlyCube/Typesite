@@ -1,6 +1,6 @@
 {
 	"name": "typesite",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "A static website builder made to work with Typescript",
 	"keywords": [
 		"static",
@@ -31,14 +31,12 @@
 		"dist"
 	],
 	"dependencies": {
+		"@types/recursive-readdir": "^2.2.0",
+		"@types/signals": "^1.0.1",
 		"recursive-readdir": "^2.2.2",
 		"signals": "^1.0.0"
 	},
 	"devDependencies": {
-		"@types/react": "^16.0.38",
-		"@types/react-dom": "^16.0.4",
-		"@types/recursive-readdir": "^2.2.0",
-		"@types/signals": "^1.0.1",
 		"@types/chai": "^4.1.2",
 		"@types/mocha": "^2.2.48",
 		"chai": "^4.1.2",

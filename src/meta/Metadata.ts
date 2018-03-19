@@ -7,6 +7,10 @@ export class Metadata {
         return Object.keys(this._map).length;
     }
 
+    public getAllItems(): IMeta[] {
+        return Object.keys(this._map).map(key => this._map[key]);
+    }
+
     public getItem<T extends IMeta>(classOrKey: { new(...params: any[]): T; } | string): T {
         const key = this.findMetaKey(classOrKey);
 

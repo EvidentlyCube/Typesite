@@ -23,6 +23,22 @@ describe('Metadata', () => {
         expect(meta.getItem(test_MT_3_ext_2)).to.equal(item3);
     });
 
+    it("Should get all metas", () => {
+        const item1 = new test_MT_1();
+        const item2 = new test_MT_2();
+        const item3 = new test_MT_3_ext_2();
+        const meta = new Metadata();
+
+        meta.setItem(item1);
+        meta.setItem(item2);
+        meta.setItem(item3);
+
+        expect(meta.getAllItems()).to.be.lengthOf(3)
+            .to.contain(item1)
+            .to.contain(item2)
+            .to.contain(item3);
+    });
+
     it("Should remove item", () => {
         const item = new test_MT_1();
         const meta = new Metadata();

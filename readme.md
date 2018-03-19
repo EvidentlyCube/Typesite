@@ -9,7 +9,7 @@ Here is an example code that builds a website based on the content stored in `co
 ```typescript
 import {Typesite} from 'typesite';
 import {OpenGraphPrefixer} from "./src/plugins/OpenGraphPrefixer";
-
+	
 // Initialize
 const typesite = new Typesite(
     __dirname + "/content", // Content directory 
