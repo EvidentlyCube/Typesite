@@ -84,7 +84,11 @@ In `run` you can interact with `ContentFileCollection` api to access the files (
 
 ## Available plugins
 
-Currently there aren't any plugins for Typesite. If you've got anything please create a github issue and I'll add it.
+ * [typesite-filter-out](https://github.com/EvidentlyCube/typesite-filter-out) - Dynamically filter out files from being saved using a callback,
+ *  [typesite-jsx-renderer](https://github.com/EvidentlyCube/typesite-jsx-renderer) - Convert JSX files to static HTML and use metadata while doing so.
+ *  [typesite-jsx-layouts](https://github.com/EvidentlyCube/typesite-jsx-layouts) - Wrap files with layouts written in JSX.
+
+Wanna add your own? Just make a PR to this repo, report it as an issue or contact me in any other way!
 
 ## Metadata
 
