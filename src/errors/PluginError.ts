@@ -19,22 +19,16 @@ export class PluginError extends Error {
 
     constructor(plugin: IPlugin, filePath:string, innerError: any) {
         let message;
-        let fileNameMessage = "";
 
-        if (filePath){
-            fileNameMessage = ` in file '${filePath}'`;
-
+        if (innerError && innerError.message){
+            message = innerError.message;
+        } else if (typeof innerError === "string"){
+            message = innerError;
         } else {
-            if (innerError && innerError.message){
-                message = innerError.message;
-            } else if (typeof innerError === "string"){
-                message = innerError;
-            } else {
-                message = "Unknown error";
-            }
+            message = "Unknown error";
         }
 
-        super(`Error in plugin '${plugin.getName()}'${fileNameMessage}: ${message}`);
+        super(`Error in plugin '${plugin.getName()}': ${message}`);
 
         this._plugin = plugin;
         this._filePath = filePath;

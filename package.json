@@ -1,6 +1,6 @@
 {
 	"name": "typesite",
-	"version": "0.4.0",
+	"version": "0.4.1",
 	"description": "A static website builder made to work with Typescript",
 	"keywords": [
 		"static",
