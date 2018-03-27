@@ -152,7 +152,7 @@ describe('ContentFileCollection', () => {
 
     it("Should move file", () => {
         const fromPath = "path/from/file.txt";
-        const toPath = "path/to/file.txt";
+        const toPath = "to/path/new.jpg";
         const file = new ContentFile(ContentFilePath.createFromPath(fromPath), "");
         const collection = new ContentFileCollection();
         collection.addFile(file.relativeSourcePath, file);
@@ -160,6 +160,7 @@ describe('ContentFileCollection', () => {
 
         expect(collection.hasFile(fromPath)).to.equal(false);
         expect(collection.hasFile(toPath)).to.equal(true);
+        expect(file.relativeTargetPath.filePath).to.equal(normalize(toPath));
     });
 
     it("Should throw exception when moving and from is null", () => {

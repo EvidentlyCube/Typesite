@@ -39,6 +39,7 @@ export class ContentFileCollection {
         if (!from) {
             throw new ArgumentNullError("from");
         }
+
         if (!to) {
             throw new ArgumentNullError("to");
         }
@@ -55,6 +56,8 @@ export class ContentFileCollection {
         }
 
         this._files[to] = this._files[from];
+        // Simulating internal property
+        (this._files[to] as any)._relativeTargetPath = ContentFilePath.createFromPath(to);
         delete(this._files[from]);
     }
 

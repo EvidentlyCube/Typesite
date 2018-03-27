@@ -10,6 +10,7 @@ export class ContentFile {
     private _modifiedContent: Buffer;
     private _hasModifiedContent: boolean;
     private _metadata: Metadata;
+    private _relativeTargetPath: ContentFilePath;
 
     public get relativeSourcePath(): ContentFilePath {
         return this._relativeSourcePath;
@@ -17,6 +18,10 @@ export class ContentFile {
 
     public get absoluteSourcePath(): ContentFilePath {
         return this._sourcesDirectory.join(this._relativeSourcePath);
+    }
+
+    public get relativeTargetPath(): ContentFilePath {
+        return this._relativeTargetPath;
     }
 
     public get metadata(): Metadata {
@@ -41,6 +46,7 @@ export class ContentFile {
         this._metadata = new Metadata();
         this._sourcesDirectory = ContentFilePath.createFromPath(resolve(typeof sourcesDirectory === "string" ? sourcesDirectory : sourcesDirectory.filePath));
         this._relativeSourcePath = typeof relativeFilePath === "string" ? ContentFilePath.createFromPath(relativeFilePath) : relativeFilePath.copy;
+        this._relativeTargetPath = this._relativeSourcePath.copy;
     }
 
     public getContents(): Buffer {
