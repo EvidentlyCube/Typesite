@@ -6,6 +6,8 @@ import {ContentReader} from "../contentReader/ContentReader";
 import {ContentWriter} from "../contentWriter/ContentWriter";
 import {IPlugin} from "./IPlugin";
 import {Metadata} from "../meta/Metadata";
+import {FileIterationError} from "../errors/FileIterationError";
+import {PluginError} from "../errors/PluginError";
 
 /**
  * Ducks and rucks
@@ -86,7 +88,15 @@ export class Typesite {
         this._onBeforeAllPlugins.dispatch(files);
         for (let plugin of this._plugins) {
             this._onBeforePlugin.dispatch(plugin);
-            await plugin.run(files, this);
+            try {
+                await plugin.run(files, this);
+            } catch (error) {
+                if (error instanceof FileIterationError){
+                    throw new PluginError(plugin, error.filePath, error.innerError);
+                } else {
+                    throw new PluginError(plugin, null, error);
+                }
+            }
             this.onAfterPlugin.dispatch(plugin);
         }
         this._onAfterAllPlugins.dispatch(files);

@@ -1,6 +1,6 @@
 {
 	"name": "typesite",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "A static website builder made to work with Typescript",
 	"keywords": [
 		"static",
@@ -18,8 +18,7 @@
 	},
 	"scripts": {
 		"build": "tsc",
-		"test": "mocha -r ts-node/register tests/**/*.test.ts",
-		"test-intellij-debug": "mocha %NODE_DEBUG_OPTION% -r ts-node/register tests/**/*.test.ts"
+		"test": "mocha -r ts-node/register tests/**/*.test.ts"
 	},
 	"author": "Maurycy Zarzycki <maurycy@evidentlycube.com> (https://www.evidentlycube.com)",
 	"license": "ISC",

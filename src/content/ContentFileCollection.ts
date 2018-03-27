@@ -4,6 +4,7 @@ import {ContentFile} from "./ContentFile";
 import {ContentFilePath} from "./ContentFilePath";
 import {ArgumentNullError} from "../errors/ArgumentNullError";
 import {ArgumentInvalidError} from "../errors/ArgumentInvalidError";
+import {FileIterationError} from "../errors/FileIterationError";
 
 export class ContentFileCollection {
     private _files: { [id: string]: ContentFile; };
@@ -83,6 +84,10 @@ export class ContentFileCollection {
             : null;
     }
 
+    public getAllRelativeFilePaths(): string[] {
+        return Object.keys(this._files);
+    }
+
     public eachSync(callback: (file: ContentFile, path: string) => void): void {
         const filePaths = Object.keys(this._files);
 
@@ -91,13 +96,13 @@ export class ContentFileCollection {
             const file = this.getFile(filePath);
 
             if (file) {
-                callback(file, filePath);
+                try {
+                    callback(file, filePath);
+                } catch (error){
+                    throw new FileIterationError(filePath, error);
+                }
             }
         }
-    }
-
-    public getAllRelativeFilePaths(): string[] {
-        return Object.keys(this._files);
     }
 
     public async eachAsync(callback: (file: ContentFile, path: string) => void): Promise<void> {
@@ -108,7 +113,11 @@ export class ContentFileCollection {
             const file = this.getFile(filePath);
 
             if (file) {
-                await callback(file, filePath);
+                try {
+                    await callback(file, filePath);
+                } catch (error){
+                    throw new FileIterationError(filePath, error);
+                }
             }
         }
     }
